@@ -165,9 +165,9 @@ static inline void initGCReal()
 //       Comment suggests an implementation that works on darwin and windows
 //       https://github.com/ivmai/bdwgc/issues/362#issuecomment-1936672196
 #  if GC_VERSION_MAJOR >= 8 && GC_VERSION_MINOR >= 2 && GC_VERSION_MICRO >= 4 && !defined(__APPLE__)
-    GC_set_sp_corrector(&fixupBoehmStackPointer);
+    // GC_set_sp_corrector(&fixupBoehmStackPointer);
 
-    if (!GC_get_sp_corrector()) {
+    if (true) {
         printTalkative("BoehmGC on this platform does not support sp_corrector; will disable GC inside coroutines");
         /* Used to disable GC when entering coroutines on macOS */
         create_coro_gc_hook = []() -> std::shared_ptr<void> { return std::make_shared<BoehmDisableGC>(); };
